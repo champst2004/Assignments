@@ -1,0 +1,25 @@
+1.	Write a program (WAP) to check given number for even and odd. 
+2.	WAP to find the greatest of the 3 nos. using conditional operators.
+3.	Write a program to find the result (Pass/Fail) of the student for minimum 3 subjects.
+4.	Write a program to convert character (capital case letter) entered into small case letter. (Extend the program for all alphabets using for loop).
+5.	Accept the basic salary of an employee. HRA is 30% of basic salary and DA is 60% of basic salary and other allowances are 40% of basic salary.  Write a program to calculate the gross salary.
+6.	Accept 5 digit number & WAP to calculate the sum of its digit.
+7.	Any character is entered through the keyboard; write a program to determine whether the character entered is a capital letter, a small case letter, a digit or a special symbol. 
+Following table shows the range of ASCII values for various characters.
+CHARACTERS	ASCII VALUES
+A – Z	65 – 90
+a - z	97 – 122
+0 – 9	48 – 57
+Special symbols	0 – 47, 58 – 64, 91 – 96, 123 - 127
+8.	WAP to print the truth tables of && and || operators.
+9.	WAP to convert a decimal number to its binary equivalent.
+10.	WAP to calculate the value of base raised to exponent (base¬ exponent), square root of given number.
+11.	WAP to print the multiplication table of the no. the table should get displayed in the following form :
+    29 * 1 = 29
+    29 * 2 = 58 
+12.	WAP to produce the following output :
+*	*	*	*	*
+      *	       *          *          *	
+		. . . 
+
+		*
