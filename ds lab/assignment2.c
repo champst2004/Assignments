@@ -64,6 +64,34 @@ void transposeTriplet(int count, int triplet[][3], int transposed[][3]){
     }
 }
 
+void fastTranspose(int count, int triplet[][3], int transposed[][3]) {
+    int rowTerms[triplet[0][1]], startingPos[triplet[0][1]];
+
+    for (int i = 0; i < triplet[0][1]; i++) {
+        rowTerms[i] = 0;
+    }
+
+    for (int i = 1; i <= count; i++) {
+        rowTerms[triplet[i][1]]++;
+    }
+
+    startingPos[0] = 1;
+    for (int i = 1; i < triplet[0][1]; i++) {
+        startingPos[i] = startingPos[i - 1] + rowTerms[i - 1];
+    }
+
+    transposed[0][0] = triplet[0][1];
+    transposed[0][1] = triplet[0][0];
+    transposed[0][2] = count;
+
+    for (int i = 1; i <= count; i++) {
+        int j = startingPos[triplet[i][1]]++;
+        transposed[j][0] = triplet[i][1];
+        transposed[j][1] = triplet[i][0];
+        transposed[j][2] = triplet[i][2];
+    }
+}
+
 int main() {
     int rows, cols;
 
@@ -81,10 +109,15 @@ int main() {
     printf("Triplet form of the matrix:\n");
     displayTriplet(count, triplet);
 
-    int transposed[count + 1][3];
-    transposeTriplet(count, triplet, transposed);
+    int stransposed[count + 1][3];
+    transposeTriplet(count, triplet, stransposed);
     printf("Simple Transpoe form of the matrix:\n");
-    displayTriplet(count, transposed);
+    displayTriplet(count, stransposed);
+
+    int ftransposed[count + 1][3];
+    fastTranspose(count, triplet, ftransposed);
+    printf("Fast Transpose form of the matrix:\n");
+    displayTriplet(count, ftransposed);
 
     return 0;
 }
