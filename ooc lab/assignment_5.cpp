@@ -1,7 +1,5 @@
-//not yet complete
 #include <iostream>
 #include <fstream>
-
 using namespace std;
 
 class Hotel{
@@ -42,7 +40,24 @@ class Hotel{
             cout << "Enter room type: ";
             cin >> room_type;
 
-            saveData();
+            try{
+                if(getAge() < 18 || getAge() > 55){
+                    throw invalid_argument("Age should be between 18 and 55\n");
+                }
+                if(getIncome() < 50000 || getIncome() > 100000){
+                    throw invalid_argument("Income should be between 50000 and 100000");
+                }
+                if(getCity() != "Pune" && getCity() != "Mumbai"){
+                    throw invalid_argument("City should be Pune or Mumbai");
+                }
+                if(getRoomType() != "delux" && getRoomType() != "superdelux"){
+                    throw invalid_argument("Room type should be delux or superdelux");
+                }
+                saveData();
+            }
+            catch(const invalid_argument &error){
+                cout << error.what() << endl;
+            }    
         }
         void display(){
             cout << "Name: " << cust_name << endl;
@@ -65,7 +80,6 @@ class Hotel{
         string getRoomType(){
             return room_type;
         }
-
 };
 
 int main(){
