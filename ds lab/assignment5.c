@@ -1,3 +1,5 @@
+//struct node* mergeLists(struct node* list1, struct node* list2) not used
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
