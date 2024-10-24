@@ -31,7 +31,7 @@ bool compareByName(const Items& a, const Items& b) {
     return a.Item_Name < b.Item_Name;
 }
 
-class InventorySystem {
+class inventory {
 private:
     list<Items> inventory;
 
@@ -88,7 +88,7 @@ public:
         cout << "Current Inventory:\n";
         for (const auto& item : inventory) {
             item.display();
-            cout << "-------------------------\n";
+            cout << endl;
         }
     }
 
@@ -104,18 +104,18 @@ public:
 };
 
 int main() {
-    InventorySystem system;
+    inventory system;
     int choice;
 
     do {
-        cout << "\n=== Inventory System Menu ===\n";
+        cout << "\n>>>Inventory System Menu<<<\n";
         cout << "1. Add Item\n";
         cout << "2. Search Item\n";
         cout << "3. Purchase Item\n";
         cout << "4. Delete Item\n";
         cout << "5. Display All Items\n";
         cout << "6. Sort Items\n";
-        cout << "0. Exit\n";
+        cout << "7. Exit\n";
         cout << "Enter your choice: ";
         cin >> choice;
 
@@ -179,7 +179,7 @@ int main() {
                 system.sortInventory(sortOption);
                 break;
             }
-            case 0: {
+            case 7: {
                 cout << "Exiting...\n";
                 break;
             }
@@ -188,7 +188,7 @@ int main() {
                 break;
             }
         }
-    } while (choice != 0);
+    } while (choice != 7);
 
     return 0;
 }
