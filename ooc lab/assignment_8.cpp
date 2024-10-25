@@ -1,194 +1,149 @@
+//1032233447
+//Shivank Tripathi
+
 #include <iostream>
 #include <list>
-#include <string>
 #include <algorithm>
+#include <string>
 
 using namespace std;
 
-class Items {
+class Item {
 public:
     int Item_Code;
     string Item_Name;
     int Item_Quantity;
-    float Item_Price;
+    double Item_Price;
 
-    Items(int code, string name, int quantity, float price) 
+    Item(int code, string name, int quantity, double price)
         : Item_Code(code), Item_Name(name), Item_Quantity(quantity), Item_Price(price) {}
-
-    void display() const {
-        cout << "Item Code: " << Item_Code << "\n";
-        cout << "Item Name: " << Item_Name << "\n";
-        cout << "Item Quantity: " << Item_Quantity << "\n";
-        cout << "Item Price per Unit: " << Item_Price << "\n";
-    }
 };
 
-bool compareByCode(const Items& a, const Items& b) {
-    return a.Item_Code < b.Item_Code;
-}
-
-bool compareByName(const Items& a, const Items& b) {
-    return a.Item_Name < b.Item_Name;
-}
-
-class inventory {
+class Inventory {
 private:
-    list<Items> inventory;
+    list<Item> items;
 
 public:
-    void addItem(int code, string name, int quantity, float price) {
-        Items newItem(code, name, quantity, price);
-        inventory.push_back(newItem);
+    void addItem(int code, string name, int quantity, double price) {
+        items.emplace_back(code, name, quantity, price);
     }
 
-    void searchItem(int code = -1, string name = "") {
-        bool found = false;
-        for (const auto& item : inventory) {
-            if (item.Item_Code == code || item.Item_Name == name) {
-                cout << "Item Found!\n";
-                item.display();
-                found = true;
-                return;
-            }
+    void displayItems() {
+        for (const auto& item : items) {
+            cout << "Code: " << item.Item_Code << ", Name: " << item.Item_Name
+                 << ", Quantity: " << item.Item_Quantity << ", Price: " << item.Item_Price << endl;
         }
-        if (!found)
-            cout << "Requested Item is not available\n";
+    }
+
+    void searchItem(int code) {
+        auto it = find_if(items.begin(), items.end(), [code](const Item& item) {
+            return item.Item_Code == code;
+        });
+
+        if (it != items.end()) {
+            cout << "Item found: Code: " << it->Item_Code << ", Name: " << it->Item_Name
+                 << ", Quantity: " << it->Item_Quantity << ", Price: " << it->Item_Price << endl;
+        } else {
+            cout << "Requested Item is not available" << endl;
+        }
     }
 
     void purchaseItem(int code, int quantity) {
-        for (auto& item : inventory) {
-            if (item.Item_Code == code) {
-                if (item.Item_Quantity >= quantity) {
-                    float totalCost = quantity * item.Item_Price;
-                    item.Item_Quantity -= quantity;
-                    cout << "Item Purchased Successfully!\n";
-                    cout << "Total Bill: " << totalCost << "\n";
-                } else {
-                    cout << "Required item's Quantity is not in stock\n";
-                }
-                return;
+        auto it = find_if(items.begin(), items.end(), [code](const Item& item) {
+            return item.Item_Code == code;
+        });
+
+        if (it != items.end()) {
+            if (it->Item_Quantity >= quantity) {
+                double totalCost = quantity * it->Item_Price;
+                it->Item_Quantity -= quantity;
+                cout << "Purchase successful. Total cost: " << totalCost << endl;
+            } else {
+                cout << "Required item's Quantity is not in stock" << endl;
             }
+        } else {
+            cout << "Requested Item is not available" << endl;
         }
-        cout << "Item not found\n";
+    }
+
+    void updateItem(int code, int newQuantity, double newPrice) {
+        auto it = find_if(items.begin(), items.end(), [code](const Item& item) {
+            return item.Item_Code == code;
+        });
+
+        if (it != items.end()) {
+            it->Item_Quantity = newQuantity;
+            it->Item_Price = newPrice;
+            cout << "Item updated successfully" << endl;
+        } else {
+            cout << "Requested Item is not available" << endl;
+        }
     }
 
     void deleteItem(int code) {
-        auto it = find_if(inventory.begin(), inventory.end(), [code](const Items& item) {
+        items.remove_if([code](const Item& item) {
             return item.Item_Code == code;
         });
-        if (it != inventory.end()) {
-            inventory.erase(it);
-            cout << "Item removed successfully!\n";
-        } else {
-            cout << "Item not found!\n";
-        }
+        cout << "Item deleted successfully" << endl;
     }
 
-    void displayAll() {
-        cout << "Current Inventory:\n";
-        for (const auto& item : inventory) {
-            item.display();
-            cout << endl;
-        }
-    }
-
-    void sortInventory(int option) {
-        if (option == 1) {
-            inventory.sort(compareByCode);
-            cout << "Items sorted by Item Code\n";
-        } else if (option == 2) {
-            inventory.sort(compareByName);
-            cout << "Items sorted by Item Name\n";
-        }
+    void sortItemsByCode() {
+        items.sort([](const Item& a, const Item& b) {
+            return a.Item_Code < b.Item_Code;
+        });
     }
 };
 
 int main() {
-    inventory system;
-    int choice;
+    Inventory inventory;
+    int choice, code, quantity;
+    double price;
+    string name;
 
-    do {
-        cout << "\n>>>Inventory System Menu<<<\n";
-        cout << "1. Add Item\n";
-        cout << "2. Search Item\n";
-        cout << "3. Purchase Item\n";
-        cout << "4. Delete Item\n";
-        cout << "5. Display All Items\n";
-        cout << "6. Sort Items\n";
-        cout << "7. Exit\n";
-        cout << "Enter your choice: ";
+    while (true) {
+        cout << "1. Add Item\n2. Display Items\n3. Search Item\n"
+             << "4. Purchase Item\n5. Update Item\n6. Delete Item\n7. Sort Items\n"
+             << "8. Exit\nEnter your choice: ";
         cin >> choice;
 
         switch (choice) {
-            case 1: {
-                int code, quantity;
-                float price;
-                string name;
-                cout << "Enter Item Code: ";
+            case 1:
+                cout << "Enter code, name, quantity, price: ";
+                cin >> code >> name >> quantity >> price;
+                inventory.addItem(code, name, quantity, price);
+                break;
+            case 2:
+                inventory.displayItems();
+                break;
+            case 3:
+                cout << "Enter code: ";
                 cin >> code;
-                cout << "Enter Item Name: ";
-                cin >> name;
-                cout << "Enter Item Quantity: ";
-                cin >> quantity;
-                cout << "Enter Item Price per Unit: ";
-                cin >> price;
-                system.addItem(code, name, quantity, price);
+                inventory.searchItem(code);
                 break;
-            }
-            case 2: {
-                int searchOption;
-                cout << "Search by: 1. Code 2. Name: ";
-                cin >> searchOption;
-                if (searchOption == 1) {
-                    int code;
-                    cout << "Enter Item Code: ";
-                    cin >> code;
-                    system.searchItem(code);
-                } else {
-                    string name;
-                    cout << "Enter Item Name: ";
-                    cin >> name;
-                    system.searchItem(-1, name);
-                }
+            case 4:
+                cout << "Enter code and quantity: ";
+                cin >> code >> quantity;
+                inventory.purchaseItem(code, quantity);
                 break;
-            }
-            case 3: {
-                int code, quantity;
-                cout << "Enter Item Code: ";
+            case 5:
+                cout << "Enter code, new quantity, new price: ";
+                cin >> code >> quantity >> price;
+                inventory.updateItem(code, quantity, price);
+                break;
+            case 6:
+                cout << "Enter code: ";
                 cin >> code;
-                cout << "Enter Quantity: ";
-                cin >> quantity;
-                system.purchaseItem(code, quantity);
+                inventory.deleteItem(code);
                 break;
-            }
-            case 4: {
-                int code;
-                cout << "Enter Item Code to delete: ";
-                cin >> code;
-                system.deleteItem(code);
+            case 7:
+                inventory.sortItemsByCode();
                 break;
-            }
-            case 5: {
-                system.displayAll();
-                break;
-            }
-            case 6: {
-                int sortOption;
-                cout << "Sort by: 1. Code 2. Name: ";
-                cin >> sortOption;
-                system.sortInventory(sortOption);
-                break;
-            }
-            case 7: {
-                cout << "Exiting...\n";
-                break;
-            }
-            default: {
-                cout << "Invalid choice! Please try again.\n";
-                break;
-            }
+            case 8:
+                cout << "Thank you!\n";
+                return 0;
+            default:
+                cout << "Invalid choice" << endl;
         }
-    } while (choice != 7);
-
+    }
     return 0;
 }
