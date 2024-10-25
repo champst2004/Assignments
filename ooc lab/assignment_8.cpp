@@ -1,6 +1,3 @@
-//1032233447
-//Shivank Tripathi
-
 #include <iostream>
 #include <list>
 #include <algorithm>
