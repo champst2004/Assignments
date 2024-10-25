@@ -1,5 +1,3 @@
-//PRN: 1032233447
-//Name: Shivank Tripathi
 #include <iostream>
 using namespace std;
 #define max 20
