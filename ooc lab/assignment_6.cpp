@@ -1,39 +1,45 @@
 #include <iostream>
 #include <fstream>
+
 using namespace std;
 
-static int upperCase, letter, digits, spaces, vowels;
-void check(char ch){
-    if(ch >= 'A' && ch <= 'Z'){
-        upperCase++;
-    }
-    if(ch >= '0' && ch <= '9'){
-        digits++;
-    }
-    if(ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u'){
-        vowels++;
-    }
-    if(ch == 'A' || ch == 'E' || ch == 'I' || ch == 'O' || ch == 'U'){
-        vowels++;
-    }
-    if(ch == ' '){
-        spaces++;
-    }
+int uppCase = 0;
+int letter = 0;
+int digit = 0;
+int whSpace = 0;
+int vowel = 0;
+
+void count(char a){
+	if ( a >= 'A' && a <= 'Z' ){
+		uppCase++;
+	}
+	if ( (a >= 'A' && a <= 'Z') || (a >= 'a' && a <= 'z') ){
+		letter++;
+	}
+	if ( a >= '0' && a <= '9' ){
+		digit++;
+	}
+	if ( a == ' ' ){
+		whSpace++;
+	}
+	if ( a == 'a' || a == 'e' || a == 'i' || a == 'o' || a == 'u' || a == 'A' || a == 'E' || a == 'I' || a == 'O' || a == 'U' ){
+		vowel++;
+	}
 }
 
 int main(){
-    ifstream inp("book.txt");
-    ofstream out("dest.txt");
-    while(!inp.eof()){
-        check(inp.get());
-        letter++;
-    }
-    out << "The no. of Uppercase letters are " << upperCase << endl;
-    out << "The no. of letters are " << letter << endl;
-    out << "The no. of digits letters are " << digits << endl;
-    out << "The no. of spaces letters are " << spaces << endl;
-    out << "The no. of vowels letters are " << vowels << endl;
-    inp.close();
-    out.close();
-    return 0;
+	ifstream file("book.txt");
+	while(!file.eof()){
+		count(file.get());
+	}
+	file.close();
+	
+	ofstream hehe("dest.txt");
+	hehe << "The number of Upper case characters is : " << uppCase << endl;
+	hehe << "The number Letters is : " << letter << endl;
+	hehe << "The number of digits is : " << digit << endl;
+	hehe << "The number of White spaces is : " << whSpace << endl;
+	hehe << "The number of vowels is : " << vowel << endl;
+	hehe.close();
+	return 0;
 }
