@@ -86,6 +86,26 @@ class record{
 				cout << "Phone No.: " << u[i].phoneNo << endl;
 				cout << "Bill Amount: " << u[i].billAmount << endl;
 			}
+			cout << endl;
+		}
+		void quickSort(int p, int r){
+			if(p < r){
+				int q = partition(p, r);
+				quickSort(p, q - 1);
+				quickSort(q + 1, r);
+			}
+		}
+		int partition(int p, int r){
+			int x = u[r].phoneNo;
+			int i = p - 1;
+			for(int j = p; j < r; j++){
+				if(u[j].phoneNo <= x){
+					i++;
+					swap(u[i], u[j]);
+				}
+			}
+			swap(u[i+1], u[r]);
+			return i+1;
 		}
 };
 
@@ -110,6 +130,7 @@ int main(){
                 jio.heapSort();
                 break;
             case 4:
+				jio.quickSort(0, n - 1);
                 break;
             case 5:
 				jio.printUser(jio.linearSearch());
