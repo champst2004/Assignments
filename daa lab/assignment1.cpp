@@ -72,7 +72,8 @@ class record{
 			int l = 0;
 			int r = n - 1;
 			while(l <= r){
-				int mid = (l+r)/2;
+				//int mid = (l+r)/2;
+				int mid = l + ((r-l)/2);
 				if(u[mid].phoneNo == no) return mid;
 				else if(u[mid].phoneNo < no) l = mid + 1;
 				else r = mid - 1;
