@@ -72,13 +72,22 @@ class record{
 			int l = 0;
 			int r = n - 1;
 			while(l <= r){
-				//int mid = (l+r)/2;
 				int mid = l + ((r-l)/2);
 				if(u[mid].phoneNo == no) return mid;
 				else if(u[mid].phoneNo < no) l = mid + 1;
 				else r = mid - 1;
 			}
             return -1;
+		}
+		int binarySearchR(int l, int r, int key){
+			while(l <= r){
+				int mid = l + (r-l)/2;
+				if(u[mid].phoneNo == key) return mid;
+				else if(u[mid].phoneNo < key) return binarySearchR(mid + 1, r, key);
+				else return binarySearchR(l, mid - 1, key);
+			}
+			return -1;
+			
 		}
 		void printUser(int i){
 			if(i == -1) cout << "User not found\n";
@@ -111,13 +120,14 @@ class record{
 };
 
 int main(){
-	int n, choice;
+	int n, choice, no;
 	cout << "Enter no. of users: ";
 	cin >> n;
 	record jio(n);
     while(1){
         cout << "1. Accept records\n2. Display records\n3. Sort using HeapSort\n";
-        cout << "4. Sort using Quick Sort\n5. Search using Linear Search\n6. Search using Binary search\n7. Exit\n";
+        cout << "4. Sort using Quick Sort\n5. Search using Linear Search\n6. Search using Binary search\n";
+        cout << "7. Search using Binary search (recursive)\n8. Exit\n";
         cout << "Enter Choice: ";
         cin >> choice;
         switch(choice){
@@ -140,6 +150,11 @@ int main(){
 				jio.printUser(jio.binarySearch());
                 break;
             case 7:
+				cout << "Enter the no you want to search: ";
+				cin >> no;
+            	jio.printUser(jio.binarySearchR(0, n - 1, no));
+            	break;
+            case 8:
                 cout << "Thank You";
                 return 0;
         }
