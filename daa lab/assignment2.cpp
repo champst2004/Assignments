@@ -76,8 +76,6 @@ class graph{
             int start;
             cout << "Enter starting vertex ID: ";
             cin >> start;
-            // for(int i = 0; i < 20; i++) cout << visited[i];
-            // cout << endl;
             dfsR(start);
         }
 
@@ -97,6 +95,31 @@ class graph{
             cout << "Enter starting vertex ID: ";
             cin >> start;
 
+            stack<int> s;
+            s.push(start);
+            visited[start] = 1;
+
+            do {
+                int current = s.top();
+                s.pop();
+                cout << head[current]->name << "[" << current << "]\n";
+                gNode *temp = head[current]->next;
+                while(temp != nullptr){
+                    if(!visited[temp->id]){
+                        s.push(temp->id);
+                        visited[temp->id] = 1;
+                    }
+                    temp = temp->next;
+                }
+            } while(!s.empty());
+        }
+
+        void bfs(){
+            for(int i = 0; i < n; i++) visited[i] = 0;
+            int start;
+            cout << "Enter starting vertex ID: ";
+            cin >> start;
+            
             queue<int> q;
             q.push(start);
             visited[start] = 1;
@@ -105,6 +128,14 @@ class graph{
                 int current = q.front();
                 q.pop();
                 cout << head[current]->name << "[" << current << "]\n";
+                gNode *temp = head[current]->next;
+                while(temp != nullptr){
+                    if(!visited[temp->id]){
+                        q.push(temp->id);
+                        visited[temp->id] = 1;
+                    }
+                    temp = temp ->next;
+                }
 
             }
         }
@@ -115,12 +146,28 @@ int main(){
     graph g;
     int ch;
     while(1){
-        cout << "1. Accept ";
+        cout << "1. Accept friends\n2. Display network\n3. DFS (Recusrive)\n4. DFS (Non Recusrive)\n5. BFS\n6. Exit\n";
         cout << "Enter choice: ";
         cin >> ch;
         switch(ch){
-            
+            case 1:
+                g.accept();
+                break;
+            case 2:
+                g.display();
+                break;
+            case 3:
+                g.dfsR();
+                break;
+            case 4:
+                g.dfsNR();
+                break;
+            case 5:
+                g.bfs();
+                break;
+            case 6:
+                cout << "Thank You!";
+                return 0;
         }
     }
-    return 0;
 }

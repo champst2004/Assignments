@@ -132,10 +132,10 @@ int main(){
         cin >> choice;
         switch(choice){
             case 1:
-            jio.accept();
+            	jio.accept();
                 break;
             case 2:
-            jio.display();
+            	jio.display();
                 break;
             case 3:
                 jio.heapSort();
