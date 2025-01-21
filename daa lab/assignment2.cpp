@@ -31,6 +31,7 @@ class graph{
                 head[i]->next = nullptr;
             }
         }
+
         void accept(){
             for(int i = 0; i < n; i++){
                 gNode *temp = head[i];
@@ -56,6 +57,7 @@ class graph{
                 } while(choice == 'Y' || choice == 'y');
             }
         }
+
         void display(){
             for(int i = 0; i < n; i++){
                 gNode *temp = head[i];
@@ -70,7 +72,6 @@ class graph{
         }
 
         int visited[20];
-
         void dfsR(){
             for(int i = 0; i < n; i++) visited[i] = 0;
             int start;
@@ -136,10 +137,8 @@ class graph{
                     }
                     temp = temp ->next;
                 }
-
             }
         }
-
 };
 
 int main(){
