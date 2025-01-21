@@ -1,4 +1,6 @@
 #include <iostream>
+#include <stack>
+#include <queue>
 using namespace std;
 
 class gNode{
@@ -67,32 +69,58 @@ class graph{
             }
         }
 
+        int visited[20];
 
-        int visited[20] = {0};
-        void dfs(){
+        void dfsR(){
+            for(int i = 0; i < n; i++) visited[i] = 0;
             int start;
-            for(int i = 0; i < n; i++){
-                cout << "Enter startig vertex: ";
-                cin >> start;
-                dfs(start);
+            cout << "Enter starting vertex ID: ";
+            cin >> start;
+            // for(int i = 0; i < 20; i++) cout << visited[i];
+            // cout << endl;
+            dfsR(start);
+        }
+
+        void dfsR(int v){
+            cout << head[v]->name << "[" << v << "]\n";
+            visited[v] = 1;
+            gNode *temp = head[v]->next;
+            while(temp != nullptr){
+                if(!visited[temp->id]) dfsR(temp->id);
+                temp = temp->next;
             }
         }
-        void dfs(int n){
-            gNode *temp = head[n];
-            cout << n;
-            visited[n] = 1;
-            while(temp->next != nullptr){
-                if(!visited[temp->id]){
-                    dfs(temp->id);
-                }
-            }            
+
+        void dfsNR(){
+            for(int i = 0; i < n; i++) visited[i] = 0;
+            int start;
+            cout << "Enter starting vertex ID: ";
+            cin >> start;
+
+            queue<int> q;
+            q.push(start);
+            visited[start] = 1;
+
+            while(!q.empty()){
+                int current = q.front();
+                q.pop();
+                cout << head[current]->name << "[" << current << "]\n";
+
+            }
         }
+
 };
 
 int main(){
     graph g;
-    g.accept();
-    g.display();
-    g.dfs();
+    int ch;
+    while(1){
+        cout << "1. Accept ";
+        cout << "Enter choice: ";
+        cin >> ch;
+        switch(ch){
+            
+        }
+    }
     return 0;
 }
