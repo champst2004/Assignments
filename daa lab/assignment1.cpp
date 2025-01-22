@@ -155,7 +155,7 @@ int main(){
             	jio.printUser(jio.binarySearchR(0, n - 1, no));
             	break;
             case 8:
-                cout << "Thank You";
+                cout << "Thank You!";
                 return 0;
         }
     }

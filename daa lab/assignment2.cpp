@@ -125,7 +125,7 @@ class graph{
             q.push(start);
             visited[start] = 1;
 
-            while(!q.empty()){
+           do {
                 int current = q.front();
                 q.pop();
                 cout << head[current]->name << "[" << current << "]\n";
@@ -137,7 +137,7 @@ class graph{
                     }
                     temp = temp ->next;
                 }
-            }
+            } while(!q.empty());
         }
 };
 
