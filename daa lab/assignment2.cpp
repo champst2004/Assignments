@@ -108,7 +108,6 @@ class graph{
             visited[v] = 1;
             gNode *temp = head[v]->next;
             while(temp != nullptr){
-                int w = temp->id;
                 if(!visited[temp->id]) dfsR(temp->id);
                 temp = temp->next;
             }
