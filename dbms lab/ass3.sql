@@ -1,19 +1,11 @@
-create database assign3;
-use assign3;
+CREATE DATABASE assign3;
+USE assign3;
 
-create table employee(empno int, ename varchar(20), job varchar(20), mgr int, hiredate date, salary int, commission int, deptno int);
-create table dept(deptno int, dname varchar(20), loc varchar(20));
-
-INSERT INTO employee VALUES (7369, "Smith", "Clerk", 7902, "1980-12-17", 800, 300, 20);
-INSERT INTO employee VALUES (7499, "Allen", "Salesman", 7698, "1981-02-20", 1600, 300, 30);
-INSERT INTO employee VALUES (7521, "Ward", "Salesman", 7698, "1981-02-22", 1250, 500, 30);
-INSERT INTO employee VALUES (7566, "Jones", "Manager", 7839, "1981-04-02", 2975, 210, 20);
-INSERT INTO employee VALUES (7698, "Blake", "Manager", 7839, "1981-05-01", 2850, 340, 30);
-INSERT INTO employee VALUES (7782, "Clark", "Manager", 7839, "1981-06-09", 2450, 110, 10);
-INSERT INTO employee VALUES (7788, "Scott", "Analyst", 7566, "1987-04-19", 3000, 100, 20);
-INSERT INTO employee VALUES (7839, "King", "President", 7516, "1981-11-17", 5000, 120, 10);
-INSERT INTO employee VALUES (7844, "Turner", "Salesman", 7698, "1981-09-08", 1500, 690, 30);
-INSERT INTO employee VALUES (7876, "Adams", "Clerk", 7788, "1987-05-23", 1100, 410, 20);
+CREATE TABLE dept(
+    deptno INT PRIMARY KEY, 
+    dname VARCHAR(20), 
+    loc VARCHAR(20)
+);
 
 INSERT INTO dept VALUES (10, "Accounting", "New York");
 INSERT INTO dept VALUES (20, "Research", "Dallas");
@@ -25,6 +17,29 @@ INSERT INTO dept VALUES (70, "IT", "Austin");
 INSERT INTO dept VALUES (80, "Logistics", "Denver");
 INSERT INTO dept VALUES (90, "Legal", "Washington");
 INSERT INTO dept VALUES (100, "Support", "Atlanta");
+
+CREATE TABLE employee(
+    empno INT PRIMARY KEY, 
+    ename VARCHAR(20), 
+    job VARCHAR(20), 
+    mgr INT NOT NULL,
+    hiredate DATE, 
+    salary INT, 
+    commission INT, 
+    deptno INT,
+    FOREIGN KEY (deptno) REFERENCES dept(deptno)
+);
+
+INSERT INTO employee VALUES (7839, "King", "President", 7839, "1981-11-17", 5000, 120, 10);
+INSERT INTO employee VALUES (7566, "Jones", "Manager", 7839, "1981-04-02", 2975, 210, 20);
+INSERT INTO employee VALUES (7698, "Blake", "Manager", 7839, "1981-05-01", 2850, 340, 30);
+INSERT INTO employee VALUES (7782, "Clark", "Manager", 7839, "1981-06-09", 2450, 110, 10);
+INSERT INTO employee VALUES (7788, "Scott", "Analyst", 7566, "1987-04-19", 3000, 100, 20);
+INSERT INTO employee VALUES (7876, "Adams", "Clerk", 7788, "1987-05-23", 1100, 410, 20);
+INSERT INTO employee VALUES (7844, "Turner", "Salesman", 7698, "1981-09-08", 1500, 690, 30);
+INSERT INTO employee VALUES (7521, "Ward", "Salesman", 7698, "1981-02-22", 1250, 500, 30);
+INSERT INTO employee VALUES (7499, "Allen", "Salesman", 7698, "1981-02-20", 1600, 300, 30);
+INSERT INTO employee VALUES (7369, "Smith", "Clerk", 7902, "1980-12-17", 800, 300, 20);
 
 
 SELECT deptno, ename, (salary * 12 + commission) AS annual_salary FROM employee ORDER BY deptno;

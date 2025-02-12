@@ -59,7 +59,7 @@ CREATE TABLE customer (
     phone VARCHAR(15) NOT NULL
 );
 
-CREATE TABLE "order" (
+CREATE TABLE order1 (
     ono INT PRIMARY KEY,
     cno INT NOT NULL,
     receivedate DATE NOT NULL,
@@ -72,7 +72,7 @@ CREATE TABLE odetails (
     ono INT NOT NULL,
     pno INT NOT NULL,
     qty INT CHECK (qty > 0) NOT NULL,
-    FOREIGN KEY (ono) REFERENCES "order"(ono),
+    FOREIGN KEY (ono) REFERENCES order1(ono),
     FOREIGN KEY (pno) REFERENCES parts(pno)
 );
 
