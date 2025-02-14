@@ -1,7 +1,8 @@
-create database assign2;
-use assign2;
-
 -- Question 1
+
+create database assign2a;
+use assign2a;
+
 CREATE TABLE Hotel (
     HotelNo INT PRIMARY KEY,
     Name VARCHAR(100) NOT NULL,
@@ -35,8 +36,11 @@ CREATE TABLE Booking (
     CHECK (DateTo > DateFrom)
 );
 
-
 -- Question 2
+
+create database assign2b;
+use assign2b;
+
 CREATE TABLE emp (
     eno INT PRIMARY KEY,
     ename VARCHAR(100) NOT NULL,
