@@ -42,7 +42,8 @@ class graph{
             }
         }
 
-        int primsAlgorithm(int start){
+        void primsAlgorithm(){
+            int start = 0;
             int nearest[cities];
             int n = cities;
             int t[cities][3];
@@ -72,11 +73,26 @@ class graph{
                 minCost += cost[index][nearest[index]];
                 nearest[index] = -1;
 
+                cout << "The nearest array after pass " << i + 1 << " is: " << endl;
+                for(int i = 0; i < n; i++){
+                    cout << nearest[i] << " ";
+                }
+                cout << endl;
+
                 for(int j = 0; j < n; j++){
                     if(nearest[j] != -1 and (cost[j][nearest[j]] > cost[j][index])) nearest[j] = index;
                 }
             }
-            return minCost;
+
+            cout << "The t matrix is: " << endl;
+            cout << "Source\t\t\tDestination\t\tCost\n";
+            for(int i = 0; i < n - 1; i++){
+                for(int j = 0; j < 3; j++){
+                    cout << t[i][j] << "\t\t\t";
+                }
+                cout << endl;
+            }
+            cout << "The cost is: " << minCost << endl;;
         }
 };
 
@@ -95,7 +111,7 @@ int main(){
                 g.display();
                 break;
             case 3:
-                cout << "The cost is: " << g.primsAlgorithm(0) << endl;
+                g.primsAlgorithm();
                 break;
             case 4:
                 cout << "Thank You!";
