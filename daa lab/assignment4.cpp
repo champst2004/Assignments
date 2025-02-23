@@ -97,8 +97,17 @@ class avlTree{
             parent->right = ll(temp);
             return rr(parent);
         }
-        void display(avlNode* root){
-
+        void display(avlNode* ptr, int level = 1){
+            if (ptr != nullptr){
+                display(ptr->right, level + 1);
+                cout << "\n";
+                if (ptr == root)
+                    cout << "Root -> ";
+                for (int i = 0; i < level && ptr != root; i++)
+                    cout << "        ";
+                cout << ptr->word;
+                display(ptr->left, level + 1);
+            }
         }
         void preOrder(avlNode* root){
             if(root == nullptr) return;
