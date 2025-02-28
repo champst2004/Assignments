@@ -107,6 +107,7 @@ class avlTree{
                     cout << "        ";
                 cout << ptr->word;
                 display(ptr->left, level + 1);
+                cout << endl;
             }
         }
         void preOrder(avlNode* root){
