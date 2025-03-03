@@ -23,9 +23,7 @@ class avlTree{
         }
         int height(avlNode *root){
             int h = 0;
-            if(root != nullptr){
-                h = max(height(root->left), height(root->right)) + 1;
-            }
+            if(root != nullptr) h = max(height(root->left), height(root->right)) + 1;
             return h;
         }
         int diff(avlNode *node){
@@ -100,11 +98,9 @@ class avlTree{
         void display(avlNode* ptr, int level = 1){
             if (ptr != nullptr){
                 display(ptr->right, level + 1);
-                cout << "\n";
-                if (ptr == root)
-                    cout << "Root -> ";
-                for (int i = 0; i < level && ptr != root; i++)
-                    cout << "        ";
+                cout << endl;
+                if (ptr == root) cout << "Root -> ";
+                for (int i = 0; i < level && ptr != root; i++) cout << "        ";
                 cout << ptr->word;
                 display(ptr->left, level + 1);
                 cout << endl;
