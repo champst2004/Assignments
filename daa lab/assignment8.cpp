@@ -29,6 +29,8 @@ class Solution {
 };
 
 int main(){
-    
+    Solution a;
+    vector<vector<int>> arr = {{5, 10}, {2, 5}, {4, 7}, {3, 9}};
+    cout << a.maximumUnits(arr, 10);
     return 0;
 }
