@@ -14,11 +14,9 @@ INSERT INTO EMPLOYEE VALUES (102, 'Alice', 40, 'Associate Prof', 70000);
 INSERT INTO EMPLOYEE VALUES (103, 'Bob', 45, 'Professor', 90000);
 
 DECLARE  
-    -- Define a cursor to fetch employee records
     CURSOR Emp_Cursor IS  
     SELECT ENo, Grade, Salary FROM EMPLOYEE;  
 
-    -- Variables to hold data from cursor  
     v_ENo EMPLOYEE.ENo%TYPE;  
     v_Grade EMPLOYEE.Grade%TYPE;  
     v_Salary EMPLOYEE.Salary%TYPE;  
