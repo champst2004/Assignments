@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 
-bool Place(int k, int i, int x[]) {
+bool place(int k, int i, int x[]) {
     for (int j = 1; j < k; j++) {
         if (x[j] == i || abs(x[j] - i) == abs(j - k))
             return false;
@@ -9,16 +9,16 @@ bool Place(int k, int i, int x[]) {
     return true;
 }
 
-void NQueen(int k, int n, int x[]) {
+void nQueen(int k, int n, int x[]) {
     for (int i = 1; i <= n; i++) {
-        if (Place(k, i, x)) {
+        if (place(k, i, x)) {
             x[k] = i;
             if (k == n) {
                 for (int j = 1; j <= n; j++)
                     cout << x[j] << " ";
                 cout << endl;
             } else {
-                NQueen(k + 1, n, x);
+                nQueen(k + 1, n, x);
             }
         }
     }
@@ -29,6 +29,6 @@ int main() {
     cout << "Enter n: ";
     cin >> n;
     int arr[n] = {0};
-    NQueen(1, n, arr);
+    nQueen(1, n, arr);
     return 0;
 }
