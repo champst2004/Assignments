@@ -71,16 +71,22 @@ int main(){
         cin >> ch;
         switch(ch){
             case 1:
+                s.createWithoutReplacement();
                 break;
             case 2:
+                s.createWithReplacement();
                 break;
             case 3:
+                s.retrive();
                 break;
             case 4:
+                s.modify();
                 break;
             case 5:
+                s.del();
                 break;
             case 6:
+                s.displayAll();
                 break;
             case 7:
                 cout << "Thank You!";
