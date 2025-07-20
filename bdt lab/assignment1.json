@@ -1,0 +1,286 @@
+use institute
+db.createCollection("student")
+db.student.insertMany([
+    {
+        _id: 1,
+        student_id: "101",
+        name: "Shivank",
+        branch: "cse",
+        age: 21,
+        panel: "A",
+        address: {
+            area: "f15",
+            city: "nsk",
+            pincode: 422003
+        },
+        subjects: [
+            { sub1: "physics", score1: 80 },
+            { sub2: "maths", score2: 99 }
+        ],
+        interests: ["OOPs", "DBMS"]
+    },
+    {
+        _id: 2,
+        student_id: "102",
+        name: "Mantrey",
+        branch: "ece",
+        age: 20,
+        panel: "B",
+        address: {
+            area: "a10",
+            city: "pun",
+            pincode: 560001
+        },
+        subjects: [
+            { sub1: "electronics", score1: 89 },
+            { sub2: "circuits", score2: 98 }
+        ],
+        interests: ["Embedded Systems", "Communication Networks"]
+    },
+    {
+        _id: 3,
+        student_id: "103",
+        name: "Ajay",
+        branch: "mech",
+        age: 23,
+        panel: "C",
+        address: {
+            area: "b20",
+            city: "chennai",
+            pincode: 600100
+        },
+        subjects: [
+            { sub1: "thermodynamics", score1: 75 },
+            { sub2: "fluid mechanics", score2: 80 }
+        ],
+        interests: ["Robotics", "Automobile Engineering"]
+    },
+    {
+        _id: 4,
+        student_id: "104",
+        name: "Nikhil",
+        branch: "civil",
+        age: 24,
+        panel: "C",
+        address: {
+            area: "c30",
+            city: "hyd",
+            pincode: 500012
+        },
+        subjects: [
+            { sub1: "surveying", score1: 90 },
+            { sub2: "material science", score2: 85 }
+        ],
+        interests: ["Structural Engineering", "Urban Planning"]
+    },
+    {
+        _id: 5,
+        student_id: "105",
+        name: "Soham",
+        branch: "bio-tech",
+        age: 21,
+        panel: "B",
+        address: {
+            area: "d40",
+            city: "pune",
+            pincode: 411014
+        },
+        subjects: [
+            { sub1: "genetics", score1: 88 },
+            { sub2: "biochemistry", score2: 92 }
+        ],
+        interests: ["Genomics", "Bioinformatics"]
+    },
+    {
+        _id: 6,
+        student_id: "106",
+        name: "Faiza",
+        branch: "eee",
+        age: 22,
+        panel: "C",
+        address: {
+            area: "e50",
+            city: "kolkata",
+            pincode: 700001
+        },
+        subjects: [
+            { sub1: "power systems", score1: 80 },
+            { sub2: "electrical machines", score2: 78 }
+        ],
+        interests: ["Power Electronics", "Renewable Energy"]
+    },
+    {
+        _id: 7,
+        student_id: "107",
+        name: "Aradhya",
+        branch: "it",
+        age: 20,
+        panel: "A",
+        address: {
+            area: "f60",
+            city: "mumbai",
+            pincode: 400060
+        },
+        subjects: [
+            { sub1: "data structures", score1: 92 },
+            { sub2: "algorithm design", score2: 85 }
+        ],
+        interests: ["AI", "Machine Learning"]
+    },
+    {
+        _id: 8,
+        student_id: "108",
+        name: "Tanishka",
+        branch: "aero",
+        age: 23,
+        panel: "B",
+        address: {
+            area: "g70",
+            city: "delhi",
+            pincode: 110005
+        },
+        subjects: [
+            { sub1: "aerodynamics", score1: 86 },
+            { sub2: "propulsion", score2: 89 }
+        ],
+        interests: ["Aerospace Design", "Flight Mechanics"]
+    },
+    {
+        _id: 9,
+        student_id: "109",
+        name: "Rahul",
+        branch: "ece",
+        age: 21,
+        panel: "C",
+        address: {
+            area: "h80",
+            city: "lucknow",
+            pincode: 226010
+        },
+        subjects: [
+            { sub1: "control systems", score1: 78 },
+            { sub2: "microprocessors", score2: 83 }
+        ],
+        interests: ["IoT", "Signal Processing"]
+    },
+    {
+        _id: 10,
+        student_id: "110",
+        name: "Vedansh",
+        branch: "cse",
+        age: 22,
+        panel: "A",
+        address: {
+            area: "i90",
+            city: "noida",
+            pincode: 201301
+        },
+        subjects: [
+            { sub1: "networking", score1: 89 },
+            { sub2: "databases", score2: 93 }
+        ],
+        interests: ["Cybersecurity", "Cloud Computing"]
+    },
+    {
+        _id: 11,
+        student_id: "111",
+        name: "Manshaj",
+        branch: "civil",
+        age: 24,
+        panel: "B",
+        address: {
+            area: "j100",
+            city: "jaipur",
+            pincode: 302004
+        },
+        subjects: [
+            { sub1: "construction management", score1: 82 },
+            { sub2: "soil mechanics", score2: 87 }
+        ],
+        interests: ["Geotechnical Engineering", "Construction Planning"]
+    }
+])
+
+
+db.student.find()
+
+db.student.updateOne(
+    { student_id: "101" },
+    { $inc: { age: 1 } }
+)
+
+db.student.updateOne(
+    { student_id: "101" },
+    { $push: { interests: { $each: ["AI", "Machine Learning", "Cloud Computing"] } } }
+)
+
+db.student.updateOne(
+    { student_id: "101" },
+    { $pop: { subjects: -1 } }
+)
+
+db.student.updateOne(
+    { student_id: "101" },
+    { 
+        $set: {
+            age: 22,
+            panel: "A",
+            address: {
+                area: "f16",
+                city: "nsk",
+                pincode: 422004
+            },
+            subjects: [
+                { sub1: "chemistry", score1: 85 },
+                { sub2: "english", score2: 90 }
+            ],
+            interests: ["AI", "Robotics", "Cloud Computing"]
+        }
+    }
+)
+
+db.student.updateMany(
+    { panel: "A" },
+    { $set: { panel: "B" } }
+)
+
+db.student.updateOne(
+    { student_id: "101" },
+    { 
+        $set: {
+            age: 22,
+            panel: "A",
+            address: {
+                area: "f16",
+                city: "nsk",
+                pincode: 422004
+            },
+            subjects: [
+                { sub1: "chemistry", score1: 85 },
+                { sub2: "english", score2: 90 }
+            ],
+            interests: ["AI", "Robotics", "Cloud Computing"]
+        }
+    },
+    { upsert: true }
+)
+
+db.student.deleteMany(
+    { panel: "C" }
+)
+
+db.student.find(
+    { age: { $gte: 22, $lte: 25 } }
+)
+
+db.student.find(
+    { "subjects.sub1": "aerodynamics" }
+)
+
+db.student.find(
+    { age: { $gt: 20 } }
+)
+
+db.student.find(
+    { name: { $regex: /^M/ } }
+)
