@@ -32,7 +32,7 @@ db.student.insertMany([
             pincode: 560001
         },
         subjects: [
-            { sub1: "electronics", score1: 89 },
+            { sub1: "dbms", score1: 89 },
             { sub2: "circuits", score2: 98 }
         ],
         interests: ["Embedded Systems", "Communication Networks"]
@@ -53,7 +53,7 @@ db.student.insertMany([
             { sub1: "thermodynamics", score1: 75 },
             { sub2: "fluid mechanics", score2: 80 }
         ],
-        interests: ["Robotics", "Automobile Engineering"]
+        interests: ["Machine Learning", "Automobile Engineering"]
     },
     {
         _id: 4,
@@ -105,7 +105,7 @@ db.student.insertMany([
         },
         subjects: [
             { sub1: "power systems", score1: 80 },
-            { sub2: "electrical machines", score2: 78 }
+            { sub2: "dbms", score2: 78 }
         ],
         interests: ["Power Electronics", "Renewable Energy"]
     },
@@ -125,7 +125,7 @@ db.student.insertMany([
             { sub1: "data structures", score1: 92 },
             { sub2: "algorithm design", score2: 85 }
         ],
-        interests: ["AI", "Machine Learning"]
+        interests: ["Big Data", "Machine Learning"]
     },
     {
         _id: 8,
@@ -161,7 +161,7 @@ db.student.insertMany([
             { sub1: "control systems", score1: 78 },
             { sub2: "microprocessors", score2: 83 }
         ],
-        interests: ["IoT", "Signal Processing"]
+        interests: ["Big Data", "Signal Processing"]
     },
     {
         _id: 10,
@@ -169,7 +169,7 @@ db.student.insertMany([
         name: "Vedansh",
         branch: "cse",
         age: 22,
-        panel: "A",
+        panel: "G",
         address: {
             area: "i90",
             city: "noida",
@@ -187,7 +187,7 @@ db.student.insertMany([
         name: "Manshaj",
         branch: "civil",
         age: 24,
-        panel: "B",
+        panel: "G",
         address: {
             area: "j100",
             city: "jaipur",
@@ -266,7 +266,7 @@ db.student.updateOne(
 )
 
 db.student.deleteMany(
-    { panel: "C" }
+    { panel: "G" }
 )
 
 db.student.find(
@@ -284,3 +284,36 @@ db.student.find(
 db.student.find(
     { name: { $regex: /^M/ } }
 )
+
+db.student.countDocuments()
+
+db.student.find({ interests: { $size: 4 } })
+
+db.student.find(
+  { interests: { $size: 3 } },
+  { name: 1, _id: 0 }
+)
+
+db.student.find().sort({ name: 1 })
+
+db.student.find({
+  $and: [
+    { panel: "B" },
+    { age: 21 }
+  ]
+})
+
+db.student.find({
+  $or: [
+    { panel: "A" },
+    { branch: "ece" }
+  ]
+})
+
+db.student.find().limit(2)
+
+db.student.find({
+  interests: { $all: ["Big Data", "Machine Learning"] }
+})
+
+db.student.drop()
