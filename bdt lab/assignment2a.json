@@ -1,0 +1,158 @@
+use Company
+
+db.createCollection("Employee")
+
+db.Employee.insertMany([
+  {
+    firstName: "John",
+    lastName: "Smith",
+    age: 25,
+    address: { streetAddress: "21 2nd Street", city: "New York", state: "NY", postalCode: "10021" },
+    phoneNumber: [
+      { type: "home", number: "212 555-1234" },
+      { type: "fax", number: "646 555-4567" }
+    ],
+    emailAddress: ["romin.k.irani@gmail.com", "tomhanks@gmail.com"]
+  },
+  {
+    firstName: "Alice",
+    lastName: "Johnson",
+    age: 32,
+    address: { streetAddress: "9 Elm Street", city: "Boston", state: "MA", postalCode: "02110" },
+    phoneNumber: [
+      { type: "mobile", number: "617 555-3344" }
+    ],
+    emailAddress: ["alice.johnson@example.com"]
+  },
+  {
+    firstName: "Mark",
+    lastName: "Lee",
+    age: 28,
+    address: { streetAddress: "74 Main Street", city: "Albany", state: "NY", postalCode: "12207" },
+    phoneNumber: [
+      { type: "home", number: "518 555-7890" },
+      { type: "fax", number: "518 555-7891" },
+      { type: "mobile", number: "518 555-7892" }
+    ],
+    emailAddress: ["mark.lee@company.com", "mlee@gmail.com", "ml.work@gmail.com"]
+  },
+  {
+    firstName: "Emily",
+    lastName: "Clark",
+    age: 29,
+    address: { streetAddress: "123 Hill Rd", city: "Denver", state: "CO", postalCode: "80014" },
+    phoneNumber: [
+      { type: "home", number: "303 555-0001" }
+    ],
+    emailAddress: ["emily.clark@example.com"]
+  },
+  {
+    firstName: "Ryan",
+    lastName: "Kim",
+    age: 35,
+    address: { streetAddress: "56 3rd Ave", city: "Seattle", state: "WA", postalCode: "98101" },
+    phoneNumber: [
+      { type: "fax", number: "206 555-4444" }
+    ],
+    emailAddress: ["ryan.kim@company.com", "ryankim@yahoo.com"]
+  },
+  {
+    firstName: "Sophie",
+    lastName: "Williams",
+    age: 22,
+    address: { streetAddress: "18 Ocean Blvd", city: "Miami", state: "FL", postalCode: "33101" },
+    phoneNumber: [
+      { type: "mobile", number: "305 555-9999" },
+      { type: "home", number: "305 555-9988" }
+    ],
+    emailAddress: ["sophie.williams@example.com"]
+  },
+  {
+    firstName: "Daniel",
+    lastName: "Brown",
+    age: 27,
+    address: { streetAddress: "400 King St", city: "San Francisco", state: "CA", postalCode: "94107" },
+    phoneNumber: [
+      { type: "mobile", number: "415 555-1111" },
+      { type: "fax", number: "415 555-1112" },
+      { type: "home", number: "415 555-1113" }
+    ],
+    emailAddress: ["dan.brown@company.com", "dbrown123@gmail.com"]
+  },
+  {
+    firstName: "Nina",
+    lastName: "Davis",
+    age: 41,
+    address: { streetAddress: "8 Broadway", city: "Buffalo", state: "NY", postalCode: "14201" },
+    phoneNumber: [
+      { type: "home", number: "716 555-5555" }
+    ],
+    emailAddress: ["nina.davis@example.com"]
+  },
+  {
+    firstName: "Liam",
+    lastName: "Walker",
+    age: 26,
+    address: { streetAddress: "21 Lakeview Dr", city: "Austin", state: "TX", postalCode: "73301" },
+    phoneNumber: [
+      { type: "mobile", number: "512 555-6666" }
+    ],
+    emailAddress: ["liam.walker@company.com"]
+  },
+  {
+    firstName: "Grace",
+    lastName: "Martinez",
+    age: 30,
+    address: { streetAddress: "99 Maple St", city: "Chicago", state: "IL", postalCode: "60601" },
+    phoneNumber: [
+      { type: "home", number: "312 555-2222" },
+      { type: "fax", number: "312 555-3333" }
+    ],
+    emailAddress: ["grace.martinez@example.com", "grace@gmail.com"]
+  }
+])
+
+db.Employee.find().pretty()
+
+db.Employee.aggregate([
+  {
+    $group: {
+      _id: "$address.state",
+      totalEmployees: { $sum: 1 }
+    }
+  }
+])
+
+db.Employee.countDocuments({ "address.state": "NY" })
+
+db.Employee.aggregate([
+  {
+    $group: {
+      _id: "$address.state",
+      total: { $sum: 1 }
+    }
+  },
+  {
+    $match: { total: { $gt: 10 } }
+  }
+])
+
+db.Employee.countDocuments({ age: { $lt: 30 } })
+
+db.Employee.find(
+  { "phoneNumber.2": { $exists: true } },
+  { firstName: 1, lastName: 1 }
+)
+
+db.Employee.countDocuments({ 
+  "phoneNumber.type": "home"
+})
+
+db.Employee.aggregate([
+  {
+    $project: {
+      fullName: { $concat: ["$firstName", " ", "$lastName"] },
+      emailCount: { $size: "$emailAddress" }
+    }
+  }
+])

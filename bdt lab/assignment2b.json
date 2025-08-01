@@ -1,0 +1,11 @@
+db.zips.createIndex({ state: 1 })
+
+db.zips.createIndex({ state: 1, city: 1 })
+
+db.zips.find({ state: "MA" }).hint({ state: 1 }).explain()
+
+db.zips.find({ state: "MA" }).explain("executionStats")
+
+db.zips.dropIndex("state_1")
+
+db.zips.dropIndexes()
