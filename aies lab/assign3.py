@@ -24,33 +24,33 @@ def cryptArithmetic():
     digits = range(10)
     
     for perm in itertools.permutations(digits, len(uniqueLetters)):
-        letter_to_digit = dict(zip(uniqueLetters, perm))
+        letterToDigit = dict(zip(uniqueLetters, perm))
         
-        if any(letter_to_digit[letter] == 0 for letter in leading_letters):
+        if any(letterToDigit[letter] == 0 for letter in leading_letters):
             continue
 
         nums = []
-        letterValue(nums, words, letter_to_digit)
+        letterValue(nums, words, letterToDigit)
         
         answer_num = 0
         for ch in answerWord:
-            answer_num = answer_num * 10 + letter_to_digit[ch]
+            answer_num = answer_num * 10 + letterToDigit[ch]
         
         if sum(nums) == answer_num:
             print("Solution found:")
             for w, val in zip(words, nums):
                 print(f"{w} = {val}")
             print(f"{answerWord} = {answer_num}")
-            return letter_to_digit
+            return letterToDigit
     
     print("No solution found.")
     return
 
-def letterValue(nums, words, letter_to_digit):
+def letterValue(nums, words, letterToDigit):
     for w in words:
         num = 0
         for ch in w:
-            num = num * 10 + letter_to_digit[ch]
+            num = num * 10 + letterToDigit[ch]
         nums.append(num)
 
 print(cryptArithmetic())
