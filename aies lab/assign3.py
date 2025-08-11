@@ -19,28 +19,28 @@ def cryptArithmetic():
         return
     
     uniqueLetters = list(uniqueLetters)
-    leading_letters = set(word[0] for word in words + [answerWord])
+    leadingLetters = set(word[0] for word in words + [answerWord])
     
     digits = range(10)
     
     for perm in itertools.permutations(digits, len(uniqueLetters)):
         letterToDigit = dict(zip(uniqueLetters, perm))
         
-        if any(letterToDigit[letter] == 0 for letter in leading_letters):
+        if any(letterToDigit[letter] == 0 for letter in leadingLetters):
             continue
 
         nums = []
         letterValue(nums, words, letterToDigit)
         
-        answer_num = 0
+        answerNum = 0
         for ch in answerWord:
-            answer_num = answer_num * 10 + letterToDigit[ch]
+            answerNum = answerNum * 10 + letterToDigit[ch]
         
-        if sum(nums) == answer_num:
+        if sum(nums) == answerNum:
             print("Solution found:")
             for w, val in zip(words, nums):
                 print(f"{w} = {val}")
-            print(f"{answerWord} = {answer_num}")
+            print(f"{answerWord} = {answerNum}")
             return letterToDigit
     
     print("No solution found.")
