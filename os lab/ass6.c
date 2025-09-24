@@ -34,3 +34,25 @@ void *writer(void *param) {
     printf("\nWriter %d is out of CS", id);
     return NULL;
 }
+
+int main() {
+    int n, i;
+    printf("Enter the number of readers/writers: ");
+    scanf("%d", &n);
+    pthread_t readers[n], writers[n];
+    int ids[n];
+    sem_init(&mutex, 0, 1);
+    sem_init(&wrt, 0, 1);
+    for (i = 0; i < n; i++) {
+        ids[i] = i + 1;
+        pthread_create(&writers[i], NULL, writer, &ids[i]);
+        pthread_create(&readers[i], NULL, reader, &ids[i]);
+    }
+    for (i = 0; i < n; i++) {
+        pthread_join(writers[i], NULL);
+        pthread_join(readers[i], NULL);
+    }
+    sem_destroy(&mutex);
+    sem_destroy(&wrt);
+    return 0;
+}
