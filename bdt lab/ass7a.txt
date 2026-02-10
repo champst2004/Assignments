@@ -1,0 +1,20 @@
+mount -t vboxsf windows /home/cloudera/Desktop/shared
+
+hdfs dfs -put /home/cloudera/cust.csv /input/customer.csv
+
+hdfs dfs -mkdir /pig
+
+customers = LOAD '/input/customer.csv' USING PigStorage(',')  AS (CustomerID:int, Genre:chararray, Age:int, Annual_Income_k:int, Spending_Score:int, Demographics:chararray);
+
+flt = FILTER customers BY Age > 25;
+flt2 = FILTER customers by Annual_Income_k > 30;
+joindata = join flt by CustomerID, flt2 by CustomerID;
+dump joindata;
+
+grouped = GROUP customers BY Demographics;
+segment_analysis = FOREACH grouped GENERATE group AS Demographics,AVG(customers.Age) AS Avg_Age,AVG(customers.Annual_Income_k) AS Avg_Income, AVG(customers.Spending_Score) AS Avg_Spending_Score;
+
+STORE segment_analysis INTO '/pig/mnp3' USING PigStorage(',');
+
+hdfs dfs -ls /pig/mnp3
+hdfs dfs -cat /pig/mnp3/part-r-00000
