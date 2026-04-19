@@ -1,0 +1,52 @@
+# OS/editor metadata
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# VS Code and IDE state
+.vscode/
+.idea/
+*.iml
+
+# Logs and temp files
+*.log
+*.tmp
+*.temp
+
+# Python cache/venv
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.venv/
+venv/
+env/
+
+# C/C++ build artifacts
+*.o
+*.obj
+*.out
+*.exe
+*.dll
+*.so
+*.a
+
+# Java build artifacts
+*.class
+*.jar
+*.war
+*.ear
+target/
+out/
+bin/
+
+# Maven/Tomcat generated folders
+tomcat/
+
+# Archives and generated outputs
+*.zip
+*.rar
+*.7z
+mpj lab/output.txt
